@@ -15,6 +15,15 @@
 #  See the GNU General Public License at <http://www.gnu.org/licenses/gpl.html>
 #  for more details
 
+
+
+# The basic assumption of this package is PEP 396 -- Module Version Numbers as
+# layed out in https://www.python.org/dev/peps/pep-0396/
+
+# Unfortunately, not all Python modules expose a version number, like inspect.
+# Other Python modules expose several version numbers, e.g. one for the
+# underlying software and one for the python packaging, like SQLite and PyQt.
+
 cmake_minimum_required (VERSION 2.8.11)
 project (PYTHON_MODULE_VERSIONS)
 
@@ -70,12 +79,12 @@ endmacro()
 #
 
 # TODO we want to write:
-# find_python_module( numpy REQUIRED 1.5 MINIMUM )
-# find_python_module( numpy REQUIRED 1.5 EXACT   )
-# find_python_module( numpy REQUIRED 1.5 WARNING )
-# find_python_module( numpy REQUIRED 1.5         )
-# find_python_module( numpy REQUIRED             )
-# find_python_module( numpy WARNING              )
+# find_python_module( numpy REQUIRED 1.5.3 MINIMUM )
+# find_python_module( numpy REQUIRED 1.5.3 EXACT   )
+# find_python_module( numpy REQUIRED 1.5.3 OPTIONAL)
+# find_python_module( numpy REQUIRED 1.5.3         )
+# find_python_module( numpy REQUIRED               )
+# find_python_module( numpy WARNING                )
 
 
 find_package( PythonInterp 2.6 REQUIRED )
@@ -86,8 +95,7 @@ python_module( pandas      0.15.1 )
 python_module( PyQt4       4.8.0 )
 python_module( re          2.2.1 )
 python_module( requests    2.1.3 )
-#python_module( celery      0.0.1 )
-
+#python_module(celery      0.0.1 )
 
 
 # TODO how to deal with the following?
@@ -97,6 +105,17 @@ python_module( requests    2.1.3 )
 #                 version  = '1.0.1'
 
 # add feature
-# python_module( sqlite REQUIRED 2.0   MINIMUM key "apilevel"     )
-# python_module( sqlite REQUIRED 1.0.1 MINIMUM key "version"      )
-# python_module( numpy  REQUIRED 1.7.1 MINIMUM key "__version__"  )
+# python_module( sqlite REQUIRED 2.0   MINIMUM VERSION_FIELD "apilevel"     )
+# python_module( sqlite REQUIRED 1.0.1 MINIMUM VERSION_FIELD "version"      )
+# python_module( numpy  REQUIRED 1.7.1 MINIMUM VERSION_FIELD "__version__"  )
+
+# TODO find versioning fields for PySerial, libxslt, libxml2
+
+# TODO
+#
+# if import my_module;print(my_module.__version__) fails try
+# pkg_resources.get_distribution(my_module).version
+#
+# ironically(?), pkg_resources does not expose __version__
+
+# TODO use module.hasattr("__version__")
