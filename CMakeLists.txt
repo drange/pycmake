@@ -87,3 +87,16 @@ python_module( PyQt4       4.8.0 )
 python_module( re          2.2.1 )
 python_module( requests    2.1.3 )
 #python_module( celery      0.0.1 )
+
+
+
+# TODO how to deal with the following?
+
+# SQLite 2 vs python-pysqlite1
+# SQLite uses     apilevel = '2.0'
+#                 version  = '1.0.1'
+
+# add feature
+# python_module( sqlite REQUIRED 2.0   MINIMUM key "apilevel"     )
+# python_module( sqlite REQUIRED 1.0.1 MINIMUM key "version"      )
+# python_module( numpy  REQUIRED 1.7.1 MINIMUM key "__version__"  )
